@@ -1,0 +1,18 @@
+﻿<Window x:Class="Lab8.AddMarkWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab8"
+        mc:Ignorable="d"
+        Title="AddMarkWindow" Height="300" Width="300"
+        ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Dodaj" HorizontalAlignment="Center" Margin="0,212,0,0" VerticalAlignment="Top" Height="38" Width="108" Click="Button_Click"/>
+        <Label FontSize="15" Content="Przedmiot:" HorizontalAlignment="Left" Margin="15,60,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbPrzedmiot" Margin="96,64,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="22" TextChanged="TextBox_TextChanged"/>
+        <Label FontSize="15 " Content="Ocena:" HorizontalAlignment="Left" Margin="42,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.068,0.65" Height="32" Width="66"/>
+        <TextBox x:Name="tbOcena" Margin="96,120,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="22" TextChanged="TextBox_TextChanged"/>
+
+    </Grid>
+</Window>
