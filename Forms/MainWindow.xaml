@@ -13,14 +13,16 @@
             <RowDefinition Height="67*"></RowDefinition>
             <RowDefinition Height="367*"></RowDefinition>
 
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="studentsGrid" Margin="0,6,0,1" Grid.Row="1" Grid.ColumnSpan="3">
+        <DataGrid x:Name="studentsGrid" Margin="0,6,0,1" Grid.Row="1" Grid.ColumnSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Imie" Binding="{Binding imie}" Width="200"/>
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding nazwisko}"  Width="200"  />
@@ -44,9 +46,18 @@
 
 
 
-        <Button x:Name="add_button_click" Grid.Column="0" Margin="10" Click="Button_Click">Add Student</Button>
-        <Button Grid.Row="0" Grid.Column="1" Margin="10" Click="Button_Click_1">Remove Student</Button>
-        <Button Grid.Row="0" Grid.Column="2" Margin="10" Click="Button_Click_2">Marks manager</Button>
+        <Button x:Name="add_button_click" Grid.Column="0" Style="{StaticResource CommonButton}" Click="Button_Click">Add Student</Button>
+        <Button Grid.Row="0" Grid.Column="1"  Click="Button_Click_1" Style="{StaticResource CommonButton}">Remove Student</Button>
+        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CommonButton}" Click="Button_Click_2">Marks</Button>
+        <Menu Grid.Row="0" Grid.Column="3" Margin="10" FontSize="10">
+            <MenuItem Header="Save">
+                <MenuItem x:Name="Savealltofile"  Click="Savealltofile_Click" Header ="Save all to file"/>
+                <MenuItem x:Name="loadfromFileItem" Click="loadfromFileItem_Click" Header="Load from file"/>
+                <MenuItem x:Name="saveDynamically" Click="saveDynamically_Click" Header="Save all dynamically"/>
+                
+            </MenuItem>
+        </Menu>
 
+        
     </Grid>
 </Window>

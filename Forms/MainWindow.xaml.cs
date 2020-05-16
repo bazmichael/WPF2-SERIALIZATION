@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.IO;
 namespace Lab8
 {
     /// <summary>
@@ -38,25 +39,26 @@ namespace Lab8
                         new Mark("5", "fizyka")
                     } 
                 },
-                new Student(){imie = "Stefan", nazwisko = "Makieta", nrIndeksu = "1026", wydzial = "WZ", marks = {
+                new Student(){imie = "Stefan", nazwisko = "Belnikowicz", nrIndeksu = "1026", wydzial = "WZ", marks = {
                         new Mark("5", "WF"),
                         new Mark("5", "angielski"),
                         new Mark("5", "statystyka")
                     }
                 },
-                new Student(){imie = "Andrzej", nazwisko = "Makieta", nrIndeksu = "1027", wydzial = "WE", marks = {
+                new Student(){imie = "Andrzej", nazwisko = "Brzesniak", nrIndeksu = "1027", wydzial = "WE", marks = {
                         new Mark("5", "matematyka"),
                         new Mark("5", "obwody"),
                         new Mark("5", "elektryka")
                     }
                 },
-                new Student(){imie = "Lukasz", nazwisko = "Makieta", nrIndeksu = "1028", wydzial = "WZ", marks = {
+                new Student(){imie = "Lukasz", nazwisko = "Kaczrakowski", nrIndeksu = "1028", wydzial = "WZ", marks = {
                         new Mark("4", "statystyka"),
                         new Mark("4", "angielski"),
                         new Mark("4", "logistyka")
                     }
                 }
         };
+        IOHelper iOHelper = new IOHelper();
         public MainWindow()
         {
           
@@ -99,6 +101,28 @@ namespace Lab8
                     
                     
              
+            
+        }
+
+        private void loadfromFileItem_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            if (!iOHelper.ReadAndWriteStudents("dane.txt", lista))
+                MessageBox.Show("Plik nie zawiera danych ");
+                
+           
+            studentsGrid.Items.Refresh(); 
+        }
+
+        private void Savealltofile_Click(object sender, RoutedEventArgs e)
+        {
+            
+            iOHelper.WriteAllStudentsData("dane.txt", lista);
+        }
+
+        private void saveDynamically_Click(object sender, RoutedEventArgs e)
+        {
             
         }
     }
