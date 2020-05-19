@@ -8,7 +8,12 @@ namespace Lab8
     {
         public string ocena { get; set; }
         public string przedmiot { get; set; }
-        
+
+        public Mark()
+        {
+            ocena = "0";
+            przedmiot = "nieznany";
+        }
 
         public Mark(string ocena_ = " ", string przedmiot_ = " ")
         {

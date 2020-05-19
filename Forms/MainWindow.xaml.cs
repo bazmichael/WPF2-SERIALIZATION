@@ -14,13 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 namespace Lab8
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+   
     public partial class MainWindow : Window
     {
+     
         public List<Student> lista = new List<Student>()
         {
                 new Student(){imie = "Jan", nazwisko = "Budalski", nrIndeksu = "1013", wydzial = "WIMiI", marks = {
@@ -107,23 +112,165 @@ namespace Lab8
         private void loadfromFileItem_Click(object sender, RoutedEventArgs e)
         {
 
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.DefaultExt = ".txt";
+            dialog.FileName = "plik";
+            dialog.Filter = "TXT document (.txt) |*.txt";
 
-            if (!iOHelper.ReadAndWriteStudents("dane.txt", lista))
-                MessageBox.Show("Plik nie zawiera danych ");
-                
-           
-            studentsGrid.Items.Refresh(); 
+            if (dialog.ShowDialog() == true)
+            {
+                if (!iOHelper.ReadAndWriteStudents(dialog.FileName, lista))
+                    MessageBox.Show("Plik nie zawiera danych ");
+
+
+                studentsGrid.Items.Refresh();
+            }
         }
+               
 
         private void Savealltofile_Click(object sender, RoutedEventArgs e)
         {
             
-            iOHelper.WriteAllStudentsData("dane.txt", lista);
+            iOHelper.WriteAllStudentsData("plikDomyslny.txt", lista);
         }
 
         private void saveDynamically_Click(object sender, RoutedEventArgs e)
         {
+
+            iOHelper.SaveDynamically("dynamicznyPlikDomyslny.txt", lista);
+        }
+
+        private void loadDynamicallyItem_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.DefaultExt = ".txt";
+            dialog.FileName = "plik";
+            dialog.Filter = "TXT document (.txt) |*.txt";
+
+            if (dialog.ShowDialog() == true)
+            {
+                List<Student> tempList = iOHelper.loadDynamically(dialog.FileName);
+                if (tempList.Count >= 1)
+                {
+                    lista.Clear();
+                    foreach (var item in tempList)
+                    {
+                        lista.Add(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Plik jest pusty!");
+                }
+
+               
+                studentsGrid.Items.Refresh();
+              
+
+            }
             
+
+
+        }
+
+        private void SavetoXMLItem_Click(object sender, RoutedEventArgs e) // NOWA OPCJA - SERIALIZATION TO XML FILE
+        {
+            
+
+            FileStream fs = new FileStream("./XMLplikDomyslny.xml", FileMode.Create);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Student>));
+
+            serializer.Serialize(fs, lista);
+
+            
+            
+       
+            
+            
+            fs.Close();
+        }
+
+        private void LoadfromXMLItem_Click(object sender, RoutedEventArgs e) // NOWA OPCJA - DESERIALIZATION FROM XML FILE
+        {
+        
+
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.DefaultExt = ".xml";
+            dialog.FileName = "plik";
+            dialog.Filter = "XML document (.xml) |*.xml";
+
+            if (dialog.ShowDialog() == true)
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Student>));
+                XmlReader reader = XmlReader.Create(dialog.FileName);
+                List<Student> tempList = (List<Student>)serializer.Deserialize(reader);
+
+                if (tempList.Count >= 1)
+                {
+                    lista.Clear();
+                    foreach (var item in tempList)
+                        lista.Add(item);
+                    studentsGrid.Items.Refresh();
+                    reader.Close();
+                    Debug.WriteLine(dialog.FileName);
+                }
+                else
+                    MessageBox.Show("Plik XML jest pusty!");
+            }
+
+        }
+
+        
+        
+        private void SavetoXMLASItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dialog1 = new Microsoft.Win32.SaveFileDialog();
+
+            dialog1.DefaultExt = ".xml";
+            dialog1.FileName = "Nowy plik";
+            dialog1.Filter = "XML document (.xml) |*.xml";
+
+            if (dialog1.ShowDialog() == true)
+            {
+
+                FileStream fs = new FileStream(dialog1.FileName, FileMode.Create);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Student>));
+                serializer.Serialize(fs, lista);
+                fs.Close();
+                if (File.Exists(dialog1.FileName))
+                    MessageBox.Show("Plik XML zostal zapisany!");
+            }
+        }
+
+        private void SavealltofileAS_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dialog1 = new Microsoft.Win32.SaveFileDialog();
+
+            dialog1.DefaultExt = ".txt";
+            dialog1.FileName = "Nowy plik";
+            dialog1.Filter = "TXT document (.txt) |*.txt";
+
+            if (dialog1.ShowDialog() == true)
+            {
+                iOHelper.WriteAllStudentsData(dialog1.FileName, lista);
+                if (File.Exists(dialog1.FileName))
+                    MessageBox.Show("Plik TXT zostal zapisany!");
+            }
+        }
+
+        private void saveDynamicallyAs_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dialog1 = new Microsoft.Win32.SaveFileDialog();
+
+            dialog1.DefaultExt = ".txt";
+            dialog1.FileName = "Nowy plik";
+            dialog1.Filter = "TXT document (.txt) |*.txt";
+            if (dialog1.ShowDialog() == true)
+            {
+                iOHelper.SaveDynamically(dialog1.FileName, lista);
+                if (File.Exists(dialog1.FileName))
+                    MessageBox.Show("Plik TXT zostal zapisany!");
+            }
         }
     }
 }

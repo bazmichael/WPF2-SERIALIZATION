@@ -7,6 +7,7 @@ namespace Lab8
     public class Student
     {
         public List<Mark> marks = new List<Mark>();
+    
 
         public string imie { get; set; }
         public string nazwisko { get; set; }
@@ -20,6 +21,13 @@ namespace Lab8
             wydzial = wydzial_;
             nrIndeksu = nrIndeksu_;
         }
+
+        public Student()
+        {
+
+        }
+
+        
 
         public void addMark(Mark mark)
         {
@@ -37,5 +45,9 @@ namespace Lab8
             return success;
         }
 
+        public override string ToString()
+        {
+            return imie + " " + nazwisko + " " + nrIndeksu + " " + wydzial;
+        }
     }
 }

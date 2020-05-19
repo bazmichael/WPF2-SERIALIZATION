@@ -19,7 +19,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+           
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="studentsGrid" Margin="0,6,0,1" Grid.Row="1" Grid.ColumnSpan="4">
@@ -48,13 +48,19 @@
 
         <Button x:Name="add_button_click" Grid.Column="0" Style="{StaticResource CommonButton}" Click="Button_Click">Add Student</Button>
         <Button Grid.Row="0" Grid.Column="1"  Click="Button_Click_1" Style="{StaticResource CommonButton}">Remove Student</Button>
-        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CommonButton}" Click="Button_Click_2">Marks</Button>
-        <Menu Grid.Row="0" Grid.Column="3" Margin="10" FontSize="10">
-            <MenuItem Header="Save">
-                <MenuItem x:Name="Savealltofile"  Click="Savealltofile_Click" Header ="Save all to file"/>
+        
+        <Menu HorizontalAlignment="Center" VerticalAlignment="Center" Background="Beige" Grid.Row="0" Grid.Column="3" Margin="10" FontSize="15">
+            <MenuItem Header="Save" Height="43" Width="243">
+                <MenuItem x:Name="Savealltofile"  Click="Savealltofile_Click" Header ="Save to file"/>
+                <MenuItem x:Name="SavealltofileAS"  Click="SavealltofileAS_Click" Header ="Save to file as"/>
                 <MenuItem x:Name="loadfromFileItem" Click="loadfromFileItem_Click" Header="Load from file"/>
-                <MenuItem x:Name="saveDynamically" Click="saveDynamically_Click" Header="Save all dynamically"/>
-                
+                <MenuItem x:Name="saveDynamically" Click="saveDynamically_Click" Header="Save using reflection"/>
+                <MenuItem x:Name="saveDynamicallyAs" Click="saveDynamicallyAs_Click" Header="Save using reflection as"/>
+                <MenuItem x:Name="loadDynamicallyItem" Click="loadDynamicallyItem_Click" Header="Dynamically load from file"/>
+                <MenuItem x:Name="SavetoXMLItem" Click="SavetoXMLItem_Click" Header="Save to XML"/>
+                <MenuItem x:Name="SavetoXMLASItem" Click="SavetoXMLASItem_Click_1" Header="Save to XML as"/>
+                <MenuItem x:Name="LoadfromXMLItem" Click="LoadfromXMLItem_Click" Header="Load from XML"/>
+              
             </MenuItem>
         </Menu>
 
